@@ -12,7 +12,6 @@ import {
     Text,
     Alert,
     TouchableOpacity,
-    Modal,
 } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -24,7 +23,6 @@ const Task = ({ navigation }) => {
     const [description, setDescription] = useState("");
     const [done, setDone] = useState(false);
     const [openModal, setModal] = useState(false);
-    const [time, changeTime] = useState(false);
     const [selectedDate, setDate] = useState(new Date(Date.now()));
     const dispatch = useDispatch();
     const { tasks, taskID } = useSelector(state => state.taskReducer);
@@ -34,7 +32,7 @@ const Task = ({ navigation }) => {
         CreateChannel();
     }, []);
 
-    const setNotification = (newDate,title,description) => {
+    const setNotification = (newDate, title, description) => {
 
         PushNotification.localNotificationSchedule({
             channelId: "test-channel",
@@ -86,7 +84,7 @@ const Task = ({ navigation }) => {
                 } else {
                     newTasks = [...tasks, Task];
                 }
-                setNotification(selectedDate,title,description);
+                setNotification(selectedDate, title, description);
                 AsyncStorage.setItem("Tasks", JSON.stringify(newTasks)).then(() => {
                     dispatch(setTasks(newTasks));
                     Alert.alert("Success!", "Task saved succesfully!");
@@ -128,14 +126,24 @@ const Task = ({ navigation }) => {
                 onChangeText={(value) => setDescription(value)}
                 multiline
             />
-            <TouchableOpacity
-                style={styles.modalView.Buttons.Button}
-                onPress={() => {
-                    setModal(true);
-                }}
-            >
-                <Icon name="alarm-outline" size={30} color={"white"} />
-            </TouchableOpacity>
+            <View style={styles.modalView.Buttons}>
+                <TouchableOpacity
+                    style={styles.modalView.Buttons.Button}
+                    onPress={() => {
+                        setModal(true);
+                    }}
+                >
+                    <Icon name="alarm-outline" size={30} color={"white"} />
+                </TouchableOpacity>
+                { /*<TouchableOpacity
+                    style={styles.modalView.Buttons.Button}
+                    onPress={() => {
+                        navigation.navigate("Camera")
+                    }}
+                >
+                    <Icon name="camera" size={30} color={"white"} />
+                </TouchableOpacity> */}
+            </View>
             <View style={styles.checkView}>
                 <CheckBox
                     value={done}
@@ -205,10 +213,12 @@ const styles = StyleSheet.create({
         Buttons: {
             flexDirection: "row",
             Button: {
+                margin:8,
+                padding:5,
                 backgroundColor: "#0080ff",
-                width: "100%",
-                borderRadius:6,
-                alignItems:"center",
+                width:"50%",
+                borderRadius: 6,
+                alignItems: "center",
             }
         }
     }

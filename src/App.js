@@ -15,6 +15,7 @@ import Splash from './screens/Splash';
 import ToDo from './screens/ToDo';
 import Done from './screens/Done';
 import Task from './screens/Task';
+import CameraVision from './screens/Camera';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -111,6 +112,13 @@ const App = () => {
             component={Task}
             options={{
               headerShown: true,
+            }}
+          />
+          <Stack.Screen
+            name="Camera"
+            component={CameraVision}
+            options={{
+              headerShown: false,
             }}
           />
 

@@ -41,12 +41,6 @@ const Item = ({ Item, onPress, onDeletePress, onCheckPress }) => (
                 >
                     {Item.description}
                 </Text>
-                <Text
-                    style={styles.date}
-                    numberOfLines={1}
-                >
-                    {moment(Item.date).format('YYYY/MM/D hh:mm ')}
-                </Text>
             </View>
         </View>
         <TouchableOpacity style={styles.delete}
@@ -178,12 +172,11 @@ const styles = StyleSheet.create({
         color: "black",
     },
     description: {
-        margin: 5,
         fontSize: 15,
     },
-    date:{
-        textAlign:"right",
-        width:"100%",
+    date: {
+        textAlign: "right",
+        width: "100%",
     },
     delete: {
         marginRight: 10,
